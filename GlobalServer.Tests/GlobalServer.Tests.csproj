@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Files\OneDeleteRequest.txt" />
+    <None Remove="Files\OneGetRequest.txt" />
+    <None Remove="Files\OnePostRequest.txt" />
+    <None Remove="Files\OnePutRequest.txt" />
+    <None Remove="Files\OneUnknownRequest.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Files\OneDeleteRequest.txt" />
+    <EmbeddedResource Include="Files\OneUnknownRequest.txt" />
+    <EmbeddedResource Include="Files\OnePutRequest.txt" />
+    <EmbeddedResource Include="Files\OnePostRequest.txt" />
+    <EmbeddedResource Include="Files\OneGetRequest.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="System.IO.Abstractions" Version="7.0.7" />
+    <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="7.0.7" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GlobalServer.Properties\GlobalServer.Properties.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using GlobalServer.Properties.Request;
 using GlobalServer.Properties.Request.Converters;
+using GlobalServer.Properties.Response;
 
 namespace GlobalServer.Properties
 {

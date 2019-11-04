@@ -1,10 +1,9 @@
 ﻿using System;
-using System.IO.Abstractions;
-using System.Threading;
 using Config.Net;
+using System.Threading;
 using GlobalServer.Api;
 using System.Threading.Tasks;
-using GlobalServer.Properties;
+using GlobalServer.Properties.Initialization;
 
 namespace GlobalServer
 {
@@ -16,7 +15,8 @@ namespace GlobalServer
                 .UseCommandLineArgs()
                 .Build();
 
-            var loader = new SettingsLoader(new FileSystem());
+            var propertiesFactory = PropertiesBuilder.Default();
+            var loader = propertiesFactory.GetSettingsLoader();
             var serverSettings = await loader.Load(commandLineSettings.FileName);
 
             using var serverToken = new CancellationTokenSource();

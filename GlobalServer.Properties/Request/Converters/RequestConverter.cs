@@ -8,23 +8,17 @@ namespace GlobalServer.Properties.Request.Converters
     {
         public override bool CanWrite => false;
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            
-        }
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) 
+            => throw new NotImplementedException();
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jo = JObject.Load(reader);
-            var method = jo.GetValue("method").Value<string>().ToLower();
 
-            switch (method)
-            {
-                case "get":
-                    return jo.ToObject<GetRequestDescription>();
-            }
-
-            return jo.ToObject<NullRequestDescription>();
+            var method = jo.GetValue("method", StringComparison.CurrentCultureIgnoreCase)
+                .Value<string>()
+                .ToLower();
+            return jo.ToObject(RequestTypeFactory.GetDescription(method).GetType());
         }
 
         public override bool CanConvert(Type objectType)

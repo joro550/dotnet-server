@@ -2,7 +2,14 @@
 
 namespace GlobalServer.Properties
 {
-    public class ServerSettings
+    public interface IServerSettings
+    {
+        bool TlsEnabled { get; }
+        bool SslEnabled { get; }
+        List<ServerInteraction> Interactions { get; }
+    }
+
+    internal class ServerSettings : IServerSettings
     {
         public bool TlsEnabled { get; set; }
         public bool SslEnabled { get; set; }
