@@ -1,19 +1,28 @@
-﻿using System.IO.Abstractions;
+﻿using Newtonsoft.Json;
+using System.IO.Abstractions;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Runtime.CompilerServices;
+using GlobalServer.Properties.Initialization;
+
+[assembly:InternalsVisibleTo("GlobalServer.Tests")]
 
 namespace GlobalServer.Properties
 {
-    public class SettingsLoader
+    public interface ISettingsLoader
+    {
+        Task<IServerSettings> Load(string file);
+    }
+
+    internal class SettingsLoader : ISettingsLoader
     {
         private readonly IFileSystem _fileSystem;
 
-        public SettingsLoader(IFileSystem fileSystem)
+        public SettingsLoader()
         {
-            _fileSystem = fileSystem;
+            _fileSystem = Configuration.Instance.FileSystem;
         }
 
-        public async Task<ServerSettings> Load(string file)
+        public async Task<IServerSettings> Load(string file)
         {
             using (var s = _fileSystem.File.OpenText(file))
             {

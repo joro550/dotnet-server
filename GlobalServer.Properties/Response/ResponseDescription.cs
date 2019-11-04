@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace GlobalServer.Properties
+namespace GlobalServer.Properties.Response
 {
     public class ResponseDescription
     {

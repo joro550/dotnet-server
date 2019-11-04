@@ -1,4 +1,4 @@
-﻿namespace GlobalServer.Properties
+﻿namespace GlobalServer.Properties.Response
 {
     public class HeaderDescription
     {
