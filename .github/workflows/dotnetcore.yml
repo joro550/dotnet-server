@@ -19,4 +19,4 @@ jobs:
       run: dotnet pack --configuration Release -o out 
       
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./GlobalServer/out/*.nupkg -k ${{ secrets.Nuget_Key }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.Nuget_Key }} -s https://api.nuget.org/v3/index.json
