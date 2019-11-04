@@ -7,6 +7,7 @@ using GlobalServer.Properties;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace GlobalServer.Api
 {
@@ -31,20 +32,19 @@ namespace GlobalServer.Api
                             foreach (var interaction in settings.Interactions)
                             {
                                 endpoints.MapGet(interaction.Request.Path,
-                                     httpContext => Task.FromResult(HandleRequest(interaction.Response)));
+                                     async httpContext =>
+                                     {
+                                         httpContext.Response.StatusCode = (int)interaction.Response.StatusCode;
+                                         httpContext.Response.ContentType = MediaTypeNames.Application.Json;
+                                         await httpContext.Response.WriteAsync(HandleRequest(interaction.Response));
+                                     });
                             }
                         });
                     });
                 });
         }
 
-        private static HttpResponseMessage HandleRequest( ResponseDescription response)
-        {
-            return new HttpResponseMessage(response.StatusCode)
-            {
-                Content = new StringContent(JsonConvert.SerializeObject(response.Body), Encoding.UTF8,
-                    MediaTypeNames.Application.Json)
-            };
-        }
+        private static string HandleRequest(ResponseDescription response) 
+            => JsonConvert.SerializeObject(response.Body);
     }
 }

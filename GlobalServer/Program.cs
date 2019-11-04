@@ -1,4 +1,6 @@
-﻿using System.IO.Abstractions;
+﻿using System;
+using System.IO.Abstractions;
+using System.Threading;
 using Config.Net;
 using GlobalServer.Api;
 using System.Threading.Tasks;
@@ -17,10 +19,15 @@ namespace GlobalServer
             var loader = new SettingsLoader(new FileSystem());
             var serverSettings = await loader.Load(commandLineSettings.FileName);
 
-            await GlobalServerApi
+            using var serverToken = new CancellationTokenSource();
+            using var host = GlobalServerApi
                 .CreateHostBuilder(serverSettings)
-                .Build()
-                .StartAsync();
+                .Build();
+
+            await host.StartAsync(serverToken.Token);
+
+            Console.ReadKey();
+            serverToken.Cancel();
         }
     }
 }
