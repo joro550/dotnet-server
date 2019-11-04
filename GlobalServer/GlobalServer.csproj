@@ -6,6 +6,7 @@
     <ToolCommandName>dotnet-server</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <AssemblyName>DotNetSimpleServer</AssemblyName>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="4.13.7" />
