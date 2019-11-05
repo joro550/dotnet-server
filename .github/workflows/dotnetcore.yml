@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +15,9 @@ jobs:
         dotnet-version: 3.0.100
         
     - name: Build with dotnet
-      run: dotnet pack --configuration Release -o out 
+      env: 
+        BUILD_NUMBER: git rev-list --count HEAD
+      run: dotnet pack --configuration Release -o out /p:Version=1.0.0.$BUILD_NUMBER
       
-    - name: Push generated package to GitHub registry
+    - name: Push nuget package
       run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.Nuget_Key }} -s https://api.nuget.org/v3/index.json
