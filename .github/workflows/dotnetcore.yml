@@ -10,6 +10,7 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Generate build number
+      id: buildnumber
       uses: einaregilsson/build-number@v1 
       with:
         token: ${{secrets.github_token}}
@@ -20,7 +21,7 @@ jobs:
         dotnet-version: 3.0.100
         
     - name: Build with dotnet
-      run: dotnet pack --configuration Release -o out /p:Version=1.0.0.$BUILD_NUMBER
+      run: dotnet pack --configuration Release -o out /p:Version=1.0.0.${{ steps.buildnumber.outputs.build_number }}
       
     - name: Push nuget package
       run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.Nuget_Key }} -s https://api.nuget.org/v3/index.json
