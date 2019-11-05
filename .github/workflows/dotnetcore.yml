@@ -8,6 +8,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+
+    - name: Generate build number
+      uses: einaregilsson/build-number@v1 
+      with:
+        token: ${{secrets.github_token}}
       
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -15,8 +20,6 @@ jobs:
         dotnet-version: 3.0.100
         
     - name: Build with dotnet
-      env: 
-        BUILD_NUMBER: git rev-list --count HEAD
       run: dotnet pack --configuration Release -o out /p:Version=1.0.0.$BUILD_NUMBER
       
     - name: Push nuget package
