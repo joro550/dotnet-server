@@ -15,7 +15,7 @@ namespace GlobalServer
                 .UseCommandLineArgs()
                 .Build();
 
-            var server = new ServerBaseImpl(commandLineSettings);
+            using var server = new ServerImpl(commandLineSettings);
             var runResult = await server.Run();
 
             if (!runResult.Success)
@@ -26,7 +26,6 @@ namespace GlobalServer
             }
 
             Console.ReadKey();
-            server.Dispose();
         }
     }
 }

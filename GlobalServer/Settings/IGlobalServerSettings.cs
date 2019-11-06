@@ -7,4 +7,9 @@ namespace GlobalServer.Settings
         [Option(Alias = "f")]
         string FileName { get; }
     }
+
+    public class GlobalServerSettings : IGlobalServerSettings
+    {
+        public string FileName { get; set; }
+    }
 }

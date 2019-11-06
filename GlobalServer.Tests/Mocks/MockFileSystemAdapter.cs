@@ -5,18 +5,25 @@ namespace GlobalServer.Tests.Mocks
 {
     public class MockFileSystemAdapter : MockFileSystem
     {
-        private MockFileSystemAdapter(IDictionary<string, MockFileData> dictionary)
-            :base(dictionary)
+        private MockFileSystemAdapter()
         {
             
         }
 
-        public static MockFileSystemAdapter Create(string fileName, string fileContents)
+        private MockFileSystemAdapter(IDictionary<string, MockFileData> dictionary)
+            : base(dictionary)
         {
-            return new MockFileSystemAdapter(new Dictionary<string, MockFileData>
+            
+        }
+
+        public static MockFileSystemAdapter Create(string fileName, string fileContents) =>
+            new MockFileSystemAdapter(new Dictionary<string, MockFileData>
             {
                 { fileName, new MockFileData(fileContents) },
             });
-        }
+
+
+        public static MockFileSystemAdapter Create() 
+            => new MockFileSystemAdapter();
     }
 }

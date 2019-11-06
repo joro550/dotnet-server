@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Microsoft.AspNetCore.Builder;
-using GlobalServer.Properties.Response;
+﻿using Microsoft.AspNetCore.Builder;
 
 namespace GlobalServer.Api
 {
@@ -12,15 +10,12 @@ namespace GlobalServer.Api
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                foreach (var interaction in Thing.Instance.Settings.Interactions)
+                foreach (var interaction in Configuration.Instance.Settings.Interactions)
                 {
                     var addRoutingRequest = new AddRouting(endpoints, interaction.Response);
                     interaction.Request.Accept(addRoutingRequest);
                 }
             });
         }
-
-        private static string HandleRequest(ResponseDescription response) 
-            => JsonConvert.SerializeObject(response.Body);
     }
 }

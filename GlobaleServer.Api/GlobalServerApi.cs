@@ -4,22 +4,29 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace GlobalServer.Api
 {
-    public static class GlobalServerApi
+    public class GlobalServerApi
     {
         public static void Main()
         {
         }
-        
-        public static IHostBuilder CreateHostBuilder(IServerSettings settings)
+
+        public static void SetSettings(IServerSettings settings)
         {
-            Thing.Instance.Settings = settings;
+            Configuration.Instance.Settings = settings;
+
+        }
+        
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
             return Host.CreateDefaultBuilder().ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
         }
+
+
     }
 
-    public class Thing
+    public class Configuration
     {
-        public static Thing Instance { get; } = new Thing();
+        public static Configuration Instance { get; } = new Configuration();
         public IServerSettings Settings { get; set; }
     }
 }

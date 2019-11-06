@@ -45,7 +45,7 @@ namespace GlobalServer.Server
             return new SuccessfulStartResponse();
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _serverToken?.Cancel();
             _serverToken?.Dispose();
