@@ -1,8 +1,8 @@
-name: Full Release
+name: Preview Release
 
 on: 
   push:
-    - master
+    - develop
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
         dotnet-version: 3.0.100
         
     - name: Build with dotnet
-      run: dotnet pack --configuration Release -o out /p:Version=1.0.1.${{ steps.buildnumber.outputs.build_number }}
+      run: dotnet pack --configuration Release -o out --version-suffix preview /p:Version=1.0.1.${{ steps.buildnumber.outputs.build_number }}
       
     - name: Push nuget package
       run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.Nuget_Key }} -s https://api.nuget.org/v3/index.json
