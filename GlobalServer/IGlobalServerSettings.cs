@@ -4,7 +4,7 @@ namespace GlobalServer
 {
     public interface IGlobalServerSettings
     {
-        [Option(Alias = "fileName")]
+        [Option(Alias = "f")]
         string FileName { get; }
     }
 }

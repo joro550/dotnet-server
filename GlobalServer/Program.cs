@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Config.Net;
 using System.Threading;
 using GlobalServer.Api;
@@ -14,6 +15,16 @@ namespace GlobalServer
             var commandLineSettings = new ConfigurationBuilder<IGlobalServerSettings>()
                 .UseCommandLineArgs()
                 .Build();
+
+            var settingsValidator = new SettingsValidator();
+            var validationResult = await settingsValidator.ValidateAsync(commandLineSettings);
+
+            if (!validationResult.IsValid)
+            {
+                var errors = validationResult.Errors.Select(failure => failure.ErrorMessage);
+                foreach (var error in errors) Console.WriteLine(error);
+                return;
+            }
 
             var propertiesFactory = PropertiesBuilder.Default();
             var loader = propertiesFactory.GetSettingsLoader();
