@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="4.13.7" />
+    <PackageReference Include="FluentValidation" Version="8.5.1" />
     <PackageReference Include="System.IO.Abstractions" Version="7.0.7" />
   </ItemGroup>
   <ItemGroup>

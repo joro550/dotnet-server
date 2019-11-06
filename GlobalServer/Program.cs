@@ -1,9 +1,9 @@
 ﻿using System;
 using Config.Net;
-using System.Threading;
-using GlobalServer.Api;
+using GlobalServer.Server;
+using GlobalServer.Settings;
 using System.Threading.Tasks;
-using GlobalServer.Properties.Initialization;
+using GlobalServer.Server.Visitors;
 
 namespace GlobalServer
 {
@@ -15,19 +15,18 @@ namespace GlobalServer
                 .UseCommandLineArgs()
                 .Build();
 
-            var propertiesFactory = PropertiesBuilder.Default();
-            var loader = propertiesFactory.GetSettingsLoader();
-            var serverSettings = await loader.Load(commandLineSettings.FileName);
+            using var server = new ServerImpl(commandLineSettings);
+            var runResult = await server.Run();
 
-            using var serverToken = new CancellationTokenSource();
-            using var host = GlobalServerApi
-                .CreateHostBuilder(serverSettings)
-                .Build();
-
-            await host.StartAsync(serverToken.Token);
+            if (!runResult.Success)
+            {
+                var errors = runResult.Accept(new GetErrors());
+                foreach (var error in errors) Console.WriteLine(error);
+                return;
+            }
 
             Console.ReadKey();
-            serverToken.Cancel();
         }
     }
 }
+
