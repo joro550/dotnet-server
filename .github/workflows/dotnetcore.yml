@@ -1,7 +1,8 @@
-name: Full Release
+name: .NET Core
 
-on: 
+on:
   push:
+    branches:
     - master
 
 jobs:
