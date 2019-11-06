@@ -1,9 +1,11 @@
-name: .NET Core
+name: Full release
 
 on:
   push:
     branches:
     - master
+    paths:
+    - 'src/**'
 
 jobs:
   build:
@@ -24,7 +26,9 @@ jobs:
         dotnet-version: 3.0.100
         
     - name: Build with dotnet
+      working-directory: ./src
       run: dotnet pack --configuration Release -o out /p:Version=1.0.1.${{ steps.buildnumber.outputs.build_number }}
       
     - name: Push nuget package
+      working-directory: ./src
       run: dotnet nuget push ./out/*.nupkg -k ${{ secrets.Nuget_Key }} -s https://api.nuget.org/v3/index.json
