@@ -1,6 +1,6 @@
 ﻿using Config.Net;
 
-namespace GlobalServer
+namespace GlobalServer.Settings
 {
     public interface IGlobalServerSettings
     {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace GlobalServer
+namespace GlobalServer.Settings
 {
     public class SettingsValidator : AbstractValidator<IGlobalServerSettings>
     {

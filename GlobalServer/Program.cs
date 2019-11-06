@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
 using Config.Net;
-using System.Threading;
-using GlobalServer.Api;
+using GlobalServer.Server;
+using GlobalServer.Settings;
 using System.Threading.Tasks;
-using GlobalServer.Properties.Initialization;
+using GlobalServer.Server.Visitors;
 
 namespace GlobalServer
 {
@@ -16,29 +15,19 @@ namespace GlobalServer
                 .UseCommandLineArgs()
                 .Build();
 
-            var settingsValidator = new SettingsValidator();
-            var validationResult = await settingsValidator.ValidateAsync(commandLineSettings);
+            var server = new ServerBaseImpl(commandLineSettings);
+            var runResult = await server.Run();
 
-            if (!validationResult.IsValid)
+            if (!runResult.Success)
             {
-                var errors = validationResult.Errors.Select(failure => failure.ErrorMessage);
+                var errors = runResult.Accept(new GetErrors());
                 foreach (var error in errors) Console.WriteLine(error);
                 return;
             }
 
-            var propertiesFactory = PropertiesBuilder.Default();
-            var loader = propertiesFactory.GetSettingsLoader();
-            var serverSettings = await loader.Load(commandLineSettings.FileName);
-
-            using var serverToken = new CancellationTokenSource();
-            using var host = GlobalServerApi
-                .CreateHostBuilder(serverSettings)
-                .Build();
-
-            await host.StartAsync(serverToken.Token);
-
             Console.ReadKey();
-            serverToken.Cancel();
+            server.Dispose();
         }
     }
 }
+

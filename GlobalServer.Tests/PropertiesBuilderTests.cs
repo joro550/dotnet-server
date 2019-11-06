@@ -2,6 +2,7 @@
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using GlobalServer.Properties.Initialization;
+using GlobalServer.Tests.Mocks;
 
 namespace GlobalServer.Tests
 {
