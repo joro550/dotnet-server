@@ -30,8 +30,8 @@ namespace GlobalServer.Tests.Mocks
         {
             Configuration.Instance.Settings = settings;
             WebFactory = new TestGlobalServer();
-            
-//            Host = _webApplicationFactory.Server.Host;
+
+            Host = new PlaceholderHost();
             return Task.CompletedTask;
         }
 
