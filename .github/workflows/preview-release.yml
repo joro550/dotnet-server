@@ -1,7 +1,8 @@
 name: Preview Release
 
-on: 
+on:
   push:
+    branches:
     - develop
 
 jobs:
