@@ -1,12 +1,10 @@
-using System.IO;
 using GlobalServer.Properties;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace GlobalServer.Api
 {
-    public static class GlobalServerApi
+    public class GlobalServerApi
     {
         public static void Main()
         {
