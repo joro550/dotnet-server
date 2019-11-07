@@ -28,6 +28,15 @@ There is a good example in the repository called `file-example.txt` have a look 
 
 ```
 {
+    "server" : {
+        "sslEnabled" : true, // sets whether ssl ports will be configured
+        "ports": [ // The ports in which the server will listen to
+            {
+                "isSecure" : true, // Is this a secure port? (https) - note, if sslEnabled is false all secure ports will be ignored
+                "portNumber" : 5000 // the number of the port
+            }
+        ]
+    },
     "interactions": [ // array of urls to listen to
         {
             "description": "A GET request to retrieve a thing", // not used, just for humans

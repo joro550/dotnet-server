@@ -1,4 +1,10 @@
 {
+	"server" : {
+        "sslEnabled" : true,
+        "ports": [
+            { "isSecure" : true, "portNumber" : 5000 }
+        ]
+    },
     "interactions": [
         {
             "description": "A GET request to retrieve a thing",

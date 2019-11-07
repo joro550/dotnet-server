@@ -12,10 +12,12 @@
     <None Remove="Files\OnePostRequest.txt" />
     <None Remove="Files\OnePutRequest.txt" />
     <None Remove="Files\OneUnknownRequest.txt" />
+    <None Remove="Files\SslEnabled.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Files\OneDeleteRequest.txt" />
+    <EmbeddedResource Include="Files\SslEnabled.txt" />
     <EmbeddedResource Include="Files\OneUnknownRequest.txt" />
     <EmbeddedResource Include="Files\OnePutRequest.txt" />
     <EmbeddedResource Include="Files\OnePostRequest.txt" />

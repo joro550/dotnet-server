@@ -16,22 +16,4 @@ namespace GlobalServer.Properties
         [JsonProperty("interactions")]
         public List<ServerInteraction> Interactions { get; set; }
     }
-
-    public class Server
-    {
-        [JsonProperty("sslEnabled")]
-        public bool SslEnabled { get; set; }
-
-        [JsonProperty("ports")]
-        public List<PortSettings> Ports { get; set; }
-    }
-
-    public class PortSettings
-    {
-        [JsonProperty("isSecure")]
-        public bool IsSecure { get; set; }
-
-        [JsonProperty("portNumber")]
-        public int PortNumber { get; set; }
-    }
 }
