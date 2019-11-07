@@ -1,10 +1,12 @@
+using System.IO;
 using GlobalServer.Properties;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace GlobalServer.Api
 {
-    public class GlobalServerApi
+    public static class GlobalServerApi
     {
         public static void Main()
         {
@@ -18,15 +20,12 @@ namespace GlobalServer.Api
         
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            return Host.CreateDefaultBuilder().ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(builder =>
+                {
+//                    builder.UseUrls("http://localhost:9000", "https://localhost:9001");
+                    builder.UseStartup<Startup>();
+                });
         }
-
-
-    }
-
-    public class Configuration
-    {
-        public static Configuration Instance { get; } = new Configuration();
-        public IServerSettings Settings { get; set; }
     }
 }

@@ -39,7 +39,8 @@ namespace GlobalServer.Server
             }
 
             _serverToken = new CancellationTokenSource();
-            var serverSettings = await GetSettingsLoader().Load(_settings.FileName);
+            var serverSettings = await GetSettingsLoader()
+                .Load(_settings.FileName);
 
             await StartServer(serverSettings, _serverToken.Token);
             return new SuccessfulStartResponse();
