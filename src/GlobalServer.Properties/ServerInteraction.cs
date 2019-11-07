@@ -7,10 +7,11 @@ namespace GlobalServer.Properties
 {
     public class ServerInteraction
     {
-        public string Description { get; set; }
-
+        [JsonProperty("request")]
         [JsonConverter(typeof(RequestConverter))]
         public RequestDescription Request { get; set; }
+        
+        [JsonProperty("response")]
         public ResponseDescription Response { get; set; }
     }
 }

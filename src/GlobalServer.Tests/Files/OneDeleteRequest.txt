@@ -1,7 +1,6 @@
   
 {
     "sslEnabled" : true,
-    "tlsEnabled" : true,
     "interactions": [
         {
             "description": "A POST request to retrieve a thing",
