@@ -5,6 +5,7 @@ using GlobalServer.Settings;
 using System.Threading.Tasks;
 using GlobalServer.Tests.Files;
 using GlobalServer.Tests.Mocks;
+using GlobalServer.Server.Responses;
 
 namespace GlobalServer.Tests
 {
@@ -84,6 +85,36 @@ namespace GlobalServer.Tests
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             Assert.Equal("{}", resultString);
+        }
+
+        public class InvalidRunResponseGetsReturned
+        {
+            [Fact]
+            public async Task WhenAServerGetsMoreThanOneRunRequest()
+            {
+                const string file = FileNames.OneDeleteRequest;
+                var settings = new GlobalServerSettings { FileName = file };
+
+                using var server = new TestServerImpl(settings);
+                server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
+                await server.Run();
+
+                var runResponse = await server.Run();
+                Assert.False(runResponse.Success);
+                var serverRunningResponse = Assert.IsType<ServerRunningResponse>(runResponse);
+                Assert.Equal("Server is all ready running", serverRunningResponse.Error);
+            }
+
+            [Fact]
+            public async Task WhenNoFileNameHasBeenSpecified()
+            {
+                using var server = new TestServerImpl(new GlobalServerSettings {FileName = string.Empty});
+
+                var runResponse = await server.Run();
+                Assert.False(runResponse.Success);
+                var serverRunningResponse = Assert.IsType<ValidationErrorServerRunResponse>(runResponse);
+                Assert.Contains("No filename was specified, please specify a file i.e. dotnet-server -fileName:C:\\file.txt", serverRunningResponse.ValidationErrors);
+            }
         }
     }
 }
