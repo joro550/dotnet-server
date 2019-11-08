@@ -28,7 +28,7 @@ namespace GlobalServer.Tests
             Assert.IsType(requestType, interaction.Request);
         }
 
-        private static Task<IServerSettings> LoadSettings(string fileName)
+        private static Task<ISettings> LoadSettings(string fileName)
         {
             const string fileLocation = @"c:\MyFile.txt";
             var fileSystem = Create(fileLocation, GetFileContents(fileName));

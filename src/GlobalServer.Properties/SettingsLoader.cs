@@ -10,7 +10,7 @@ namespace GlobalServer.Properties
 {
     public interface ISettingsLoader
     {
-        Task<IServerSettings> Load(string file);
+        Task<ISettings> Load(string file);
     }
 
     internal class SettingsLoader : ISettingsLoader
@@ -22,12 +22,12 @@ namespace GlobalServer.Properties
             _fileSystem = Configuration.Instance.FileSystem;
         }
 
-        public async Task<IServerSettings> Load(string file)
+        public async Task<ISettings> Load(string file)
         {
             using (var s = _fileSystem.File.OpenText(file))
             {
                 var settings = await s.ReadToEndAsync();
-                return JsonConvert.DeserializeObject<ServerSettings>(settings);
+                return JsonConvert.DeserializeObject<Settings>(settings);
             }
         }
     }

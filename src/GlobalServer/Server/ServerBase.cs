@@ -22,7 +22,7 @@ namespace GlobalServer.Server
         }
 
         protected abstract ISettingsLoader GetSettingsLoader();
-        protected abstract Task StartServer(IServerSettings settings, CancellationToken cancellationToken);
+        protected abstract Task StartServer(ISettings settings, CancellationToken cancellationToken);
 
         public async Task<ServerRunResponse> Run()
         {

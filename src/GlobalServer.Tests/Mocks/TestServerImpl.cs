@@ -26,7 +26,7 @@ namespace GlobalServer.Tests.Mocks
             return propertiesBuilder.GetSettingsLoader();
         }
 
-        protected override Task StartServer(IServerSettings settings, CancellationToken cancellationToken)
+        protected override Task StartServer(ISettings settings, CancellationToken cancellationToken)
         {
             Configuration.Instance.Settings = settings;
             WebFactory = new TestGlobalServer();

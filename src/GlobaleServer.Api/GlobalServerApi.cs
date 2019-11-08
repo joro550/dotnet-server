@@ -1,3 +1,4 @@
+using System.Linq;
 using GlobalServer.Properties;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
@@ -10,10 +11,9 @@ namespace GlobalServer.Api
         {
         }
 
-        public static void SetSettings(IServerSettings settings)
+        public static void SetSettings(ISettings settings)
         {
             Configuration.Instance.Settings = settings;
-
         }
         
         public static IHostBuilder CreateHostBuilder(string[] args)
@@ -21,7 +21,16 @@ namespace GlobalServer.Api
             return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(builder =>
                 {
-//                    builder.UseUrls("http://localhost:9000", "https://localhost:9001");
+                    var ports = Configuration.Instance.Settings?.Server?.Ports;
+                    if (ports != null && ports.Any())
+                    {
+                        var urlList = ports.Select(settings =>
+                            settings.IsSecure
+                                ? $"https://localhost:{settings.PortNumber}"
+                                : $"http://localhost:{settings.PortNumber}");
+                        builder.UseUrls(urlList.ToArray());
+                    }
+
                     builder.UseStartup<Startup>();
                 });
         }

@@ -7,5 +7,7 @@
         public const string OnePutRequest = "OnePutRequest";
         public const string OneDeleteRequest = "OneDeleteRequest";
         public const string OneUnknownRequest = "OneUnknownRequest";
+        public const string SslEnabled = "SslEnabled";
+        public const string SslDisabled = "SslDisabled";
     }
 }
