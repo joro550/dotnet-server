@@ -3,9 +3,10 @@ using System.Net;
 using System.Net.Http;
 using GlobalServer.Settings;
 using System.Threading.Tasks;
-using GlobalServer.Tests.Files;
 using GlobalServer.Tests.Mocks;
 using GlobalServer.Server.Responses;
+using static GlobalServer.Tests.Files.FileNames;
+using static GlobalServer.Tests.Files.FileLoader;
 
 namespace GlobalServer.Tests
 {
@@ -14,11 +15,11 @@ namespace GlobalServer.Tests
         [Fact]
         public async Task ServerRespondsToConfiguredGetRequest()
         {
-            const string file = FileNames.OneGetRequest;
+            const string file = OneGetRequest;
             var settings = new GlobalServerSettings{FileName = file};
 
             using var server = new TestServerImpl(settings);
-            server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
+            server.FileSystem.AddFile(file, GetFileContents(file));
             await server.Run();
 
             using var client = server.WebFactory.CreateClient();
@@ -33,11 +34,11 @@ namespace GlobalServer.Tests
         [Fact]
         public async Task ServerRespondsToConfiguredPostRequest()
         {
-            const string file = FileNames.OnePostRequest;
+            const string file = OnePostRequest;
             var settings = new GlobalServerSettings{FileName = file};
 
             using var server = new TestServerImpl(settings);
-            server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
+            server.FileSystem.AddFile(file, GetFileContents(file));
             await server.Run();
 
             using var client = server.WebFactory.CreateClient();
@@ -52,11 +53,11 @@ namespace GlobalServer.Tests
         [Fact]
         public async Task ServerRespondsToConfiguredPutRequest()
         {
-            const string file = FileNames.OnePutRequest;
+            const string file = OnePutRequest;
             var settings = new GlobalServerSettings{FileName = file};
 
             using var server = new TestServerImpl(settings);
-            server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
+            server.FileSystem.AddFile(file, GetFileContents(file));
             await server.Run();
 
             using var client = server.WebFactory.CreateClient();
@@ -71,11 +72,11 @@ namespace GlobalServer.Tests
         [Fact]
         public async Task ServerRespondsToConfiguredDeleteRequest()
         {
-            const string file = FileNames.OneDeleteRequest;
+            const string file = OneDeleteRequest;
             var settings = new GlobalServerSettings{FileName = file};
 
             using var server = new TestServerImpl(settings);
-            server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
+            server.FileSystem.AddFile(file, GetFileContents(file));
             await server.Run();
 
             using var client = server.WebFactory.CreateClient();
@@ -92,11 +93,11 @@ namespace GlobalServer.Tests
             [Fact]
             public async Task WhenAServerGetsMoreThanOneRunRequest()
             {
-                const string file = FileNames.OneDeleteRequest;
+                const string file = OneDeleteRequest;
                 var settings = new GlobalServerSettings { FileName = file };
 
                 using var server = new TestServerImpl(settings);
-                server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
+                server.FileSystem.AddFile(file, GetFileContents(file));
                 await server.Run();
 
                 var runResponse = await server.Run();

@@ -1,13 +1,8 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using GlobalServer.Settings;
 using System.Threading.Tasks;
-using GlobalServer.Properties;
-using GlobalServer.Properties.Initialization;
-using GlobalServer.Server;
 using GlobalServer.Tests.Files;
 using GlobalServer.Tests.Mocks;
 
@@ -21,16 +16,13 @@ namespace GlobalServer.Tests
             const string file = FileNames.SslEnabled;
             var settings = new GlobalServerSettings { FileName = file };
 
-            using var server = new HelpServerImpl(settings);
+            using var server = new TestRealServerImpl(settings);
             server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
             await server.Run();
 
-            using var client = new HttpClient
-            {
-                BaseAddress = new Uri("https://localhost:5000")
-            };
+            using var client = new HttpClient();
 
-            var result = await client.GetAsync("/things/1234");
+            var result = await client.GetAsync("https://localhost:5000/things/1234");
             var resultString = await result.Content.ReadAsStringAsync();
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
@@ -43,39 +35,48 @@ namespace GlobalServer.Tests
             const string file = FileNames.SslDisabled;
             var settings = new GlobalServerSettings { FileName = file };
 
-            using var server = new HelpServerImpl(settings);
+            using var server = new TestRealServerImpl(settings);
             server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
             await server.Run();
 
-            using var client = new HttpClient
-            {
-                BaseAddress = new Uri("http://localhost:5000")
-            };
+            using var client = new HttpClient();
 
-            var result = await client.GetAsync("/things/1234");
+            var result = await client.GetAsync("http://localhost:5000/things/1234");
             var resultString = await result.Content.ReadAsStringAsync();
 
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             Assert.Equal("{\"Hello\":\"World\"}", resultString);
         }
-    }
 
-    public class HelpServerImpl : ServerImpl
-    {
-        public MockFileSystemAdapter FileSystem { get; }
-        public TestGlobalServer WebFactory { get; private set; }
-
-        public HelpServerImpl(IGlobalServerSettings settings) : base(settings)
+        [Fact]
+        public async Task ServerRespondsOnMultipleConfiguredPort()
         {
-            FileSystem = MockFileSystemAdapter.Create();
+            const string file = FileNames.MultipleEndpoints;
+            var settings = new GlobalServerSettings { FileName = file };
+
+            using var server = new TestRealServerImpl(settings);
+            server.FileSystem.AddFile(file, FileLoader.GetFileContents(file));
+            await server.Run();
+
+            using var client = new HttpClient();
+
+            var result1 = await client.GetAsync("http://localhost:5000/things/1234");
+            var result2 = await client.GetAsync("http://localhost:5001/things/1234");
+            var result3 = await client.GetAsync("https://localhost:5002/things/1234");
+            var result4 = await client.GetAsync("https://localhost:5003/things/1234");
+            
+            await TestResult(result1);
+            await TestResult(result2);
+            await TestResult(result3);
+            await TestResult(result4);
         }
 
-        protected override ISettingsLoader GetSettingsLoader()
+        private static async Task TestResult(HttpResponseMessage result)
         {
-            var propertiesBuilder = new PropertiesBuilder()
-                .WithFileSystem(FileSystem)
-                .Build();
-            return propertiesBuilder.GetSettingsLoader();
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+            Assert.Equal("{\"Hello\":\"World\"}", resultString);
         }
     }
 }
