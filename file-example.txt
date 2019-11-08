@@ -1,7 +1,11 @@
   
 {
-    "sslEnabled" : true,
-    "tlsEnabled" : true,
+    "server" : {
+        "ports" : [
+            {"isSecure": true, "portNumber":6000},
+            {"isSecure": false, "portNumber":6001}
+        ]
+    },
     "interactions": [
         {
             "description": "A GET request to retrieve a thing",
