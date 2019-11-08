@@ -31,7 +31,7 @@ jobs:
         
     - name: Build with dotnet
       working-directory: ./src
-      run: dotnet pack --configuration Release -o out /p:Version=1.0.1.${{ steps.buildnumber.outputs.build_number }}
+      run: dotnet pack --configuration Release -o out /p:Version=1.1.0.${{ steps.buildnumber.outputs.build_number }}
       
     - name: Push nuget package
       working-directory: ./src
