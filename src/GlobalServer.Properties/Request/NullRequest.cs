@@ -2,13 +2,13 @@
 
 namespace GlobalServer.Properties.Request
 {
-    public class PutRequestDescription : RequestDescription
+    public class NullRequest : RequestBase
     {
-        internal override string Method => "put";
+        internal override string Method { get; }
 
         public override void Accept(Visitor visitor)
         {
-            visitor.VisitPutDescription(this);
+            visitor.VisitNullDescription(this);
         }
     }
 }

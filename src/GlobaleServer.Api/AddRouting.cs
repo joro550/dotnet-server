@@ -9,28 +9,28 @@ namespace GlobalServer.Api
 {
     public class AddRouting : Visitor
     {
-        private readonly ResponseDescription _response;
+        private readonly ResponseBase _response;
         private readonly IEndpointRouteBuilder _builder;
 
-        public AddRouting(IEndpointRouteBuilder builder, ResponseDescription response)
+        public AddRouting(IEndpointRouteBuilder builder, ResponseBase response)
         {
             _builder = builder;
             _response = response;
         }
 
-        public override void VisitGetDescription(GetRequestDescription element) 
+        public override void VisitGetDescription(GetRequest element) 
             => _builder.MapGet(element.Path, RequestDelegate());
 
-        public override void VisitDeleteDescription(DeleteRequestDescription element) 
+        public override void VisitDeleteDescription(DeleteRequest element) 
             => _builder.MapDelete(element.Path, RequestDelegate());
 
-        public override void VisitPostDescription(PostRequestDescription element) 
+        public override void VisitPostDescription(PostRequest element) 
             => _builder.MapPost(element.Path, RequestDelegate());
 
-        public override void VisitPutDescription(PutRequestDescription element) 
+        public override void VisitPutDescription(PutRequest element) 
             => _builder.MapPut(element.Path, RequestDelegate());
 
-        public override void VisitNullDescription(NullRequestDescription element)
+        public override void VisitNullDescription(NullRequest element)
         {
         }
 

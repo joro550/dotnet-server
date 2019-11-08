@@ -13,11 +13,11 @@ namespace GlobalServer.Tests
     public class SettingsLoaderTests
     {
         [Theory]
-        [InlineData(OneGetRequest, typeof(GetRequestDescription))]
-        [InlineData(OnePutRequest, typeof(PutRequestDescription))]
-        [InlineData(OnePostRequest, typeof(PostRequestDescription))]
-        [InlineData(OneUnknownRequest, typeof(NullRequestDescription))]
-        [InlineData(OneDeleteRequest, typeof(DeleteRequestDescription))]
+        [InlineData(OneGetRequest, typeof(GetRequest))]
+        [InlineData(OnePutRequest, typeof(PutRequest))]
+        [InlineData(OnePostRequest, typeof(PostRequest))]
+        [InlineData(OneUnknownRequest, typeof(NullRequest))]
+        [InlineData(OneDeleteRequest, typeof(DeleteRequest))]
         public void GivenFileWithSpecifiedRequest_ThenRequestDescriptionIsCorrectType(string fileName, Type requestType)
         {
             var settings = LoadSettings(fileName);

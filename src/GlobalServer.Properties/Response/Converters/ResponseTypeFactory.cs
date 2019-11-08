@@ -1,17 +1,18 @@
-﻿using System.Linq;
+﻿using System;
 using System.Collections.Generic;
 
 namespace GlobalServer.Properties.Response.Converters
 {
-    public class ResponseTypeFactory
+    public static class ResponseTypeFactory
     {
-        private static readonly List<ResponseBase> Responses = new List<ResponseBase>
+        private static readonly Dictionary<string, Type> ResponseTypes = new Dictionary<string, Type>
         {
-            new ResponseDescription()
+            { "response", typeof(ResponseDescription) }
         };
 
-        public static ResponseBase GetResponse(string method) =>
-            Responses.FirstOrDefault(requestDescription => requestDescription.Keyword == method) 
-            ?? new UnknownResponse();
+        public static Type GetResponse(string responseType) 
+            => ResponseTypes.ContainsKey(responseType) 
+                ? ResponseTypes[responseType] 
+                : typeof(UnknownResponse);
     }
 }

@@ -18,10 +18,10 @@ namespace GlobalServer.Properties.Request.Converters
             var method = jo.GetValue("method", StringComparison.CurrentCultureIgnoreCase)
                 .Value<string>()
                 .ToLower();
-            return jo.ToObject(RequestTypeFactory.GetDescription(method).GetType());
+            return jo.ToObject(RequestTypeFactory.GetDescription(method));
         }
 
         public override bool CanConvert(Type objectType)
-            => objectType == typeof(RequestDescription) || objectType == typeof(RequestDescription);
+            => objectType == typeof(RequestBase) || objectType == typeof(RequestBase);
     }
 }

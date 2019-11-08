@@ -14,12 +14,15 @@ namespace GlobalServer.Properties.Response.Converters
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jo = JObject.Load(reader);
+            var hasType = jo.TryGetValue("type", StringComparison.CurrentCultureIgnoreCase, out var typeToken);
 
-            var method = jo.GetValue("method", StringComparison.CurrentCultureIgnoreCase)
-                .Value<string>()
-                .ToLower();
-            return jo.ToObject(ResponseTypeFactory.GetResponse(method).GetType());
+            return hasType
+                ? jo.ToObject(GetResponseType(typeToken))
+                : jo.ToObject<ResponseDescription>();
         }
+
+        private static Type GetResponseType(JToken type)
+            => ResponseTypeFactory.GetResponse(type.Value<string>());
 
         public override bool CanConvert(Type objectType)
             => objectType == typeof(ResponseBase) || objectType == typeof(ResponseBase);
