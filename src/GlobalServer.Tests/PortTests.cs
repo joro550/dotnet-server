@@ -11,6 +11,7 @@ namespace GlobalServer.Tests
     public class PortTests
     {
         [Fact]
+        [Trait("Category","SkipOnCI")]
         public async Task ServerRespondsOnConfiguredSecurePort()
         {
             const string file = FileNames.SslEnabled;
@@ -49,6 +50,7 @@ namespace GlobalServer.Tests
         }
 
         [Fact]
+        [Trait("Category","SkipOnCI")]
         public async Task ServerRespondsOnMultipleConfiguredPort()
         {
             const string file = FileNames.MultipleEndpoints;
