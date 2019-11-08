@@ -2,7 +2,7 @@
 
 namespace GlobalServer.Properties.Request
 {
-    public abstract class RequestDescription
+    public abstract class RequestBase
     {
         internal abstract string Method { get; }
     

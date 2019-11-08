@@ -7,19 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Files\MultipleEndpoints.txt" />
     <None Remove="Files\OneDeleteRequest.txt" />
     <None Remove="Files\OneGetRequest.txt" />
     <None Remove="Files\OnePostRequest.txt" />
     <None Remove="Files\OnePutRequest.txt" />
     <None Remove="Files\OneUnknownRequest.txt" />
+    <None Remove="Files\SslDisabled.txt" />
+    <None Remove="Files\SslEnabled.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Files\OneDeleteRequest.txt" />
-    <EmbeddedResource Include="Files\OneUnknownRequest.txt" />
-    <EmbeddedResource Include="Files\OnePutRequest.txt" />
-    <EmbeddedResource Include="Files\OnePostRequest.txt" />
-    <EmbeddedResource Include="Files\OneGetRequest.txt" />
+    <EmbeddedResource Include="Files\Methods\OneDeleteRequest.txt" />
+    <EmbeddedResource Include="Files\Ports\SslDisabled.txt" />
+    <EmbeddedResource Include="Files\Ports\MultipleEndpoints.txt" />
+    <EmbeddedResource Include="Files\Ports\SslEnabled.txt" />
+    <EmbeddedResource Include="Files\Methods\OneUnknownRequest.txt" />
+    <EmbeddedResource Include="Files\Methods\OnePutRequest.txt" />
+    <EmbeddedResource Include="Files\Methods\OnePostRequest.txt" />
+    <EmbeddedResource Include="Files\Methods\OneGetRequest.txt" />
   </ItemGroup>
 
   <ItemGroup>

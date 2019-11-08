@@ -20,7 +20,7 @@ namespace GlobalServer.Server
             return propertiesFactory.GetSettingsLoader();
         }
 
-        protected override Task StartServer(IServerSettings settings, CancellationToken cancellationToken)
+        protected override Task StartServer(ISettings settings, CancellationToken cancellationToken)
         {
             GlobalServerApi.SetSettings(settings);
 

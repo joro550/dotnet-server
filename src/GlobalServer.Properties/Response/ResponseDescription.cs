@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net.Mime;
 using Newtonsoft.Json;
 
 namespace GlobalServer.Properties.Response
 {
-    public class ResponseDescription
+    public class ResponseDescription : ResponseBase
     {
-        [JsonProperty("status")]
-        public HttpStatusCode StatusCode { get; set; }
-        public List<HeaderDescription> Headers { get; set; }
+        [JsonProperty("body")]
         public object Body { get; set; }
+        
+        public override string GetContentType() 
+            => MediaTypeNames.Application.Json;
+
+        public override string GetResponse()
+            => JsonConvert.SerializeObject(Body);
     }
 }

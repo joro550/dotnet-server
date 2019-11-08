@@ -1,12 +1,9 @@
-  
 {
-    "sslEnabled" : true,
-    "tlsEnabled" : true,
     "interactions": [
         {
             "description": "A POST request to retrieve a thing",
             "request": {
-                "method": "delete",
+                "method": "unknown",
                 "path": "/things/1234"
             },
             "response": {

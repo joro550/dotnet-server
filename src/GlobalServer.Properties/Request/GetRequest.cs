@@ -2,12 +2,12 @@
 
 namespace GlobalServer.Properties.Request
 {
-    public class DeleteRequestDescription : RequestDescription
+    public class GetRequest : RequestBase
     {
-        internal override string Method => "delete";
+        internal override string Method => "get";
         public override void Accept(Visitor visitor)
         {
-            visitor.VisitDeleteDescription(this);
+            visitor.VisitGetDescription(this);
         }
     }
 }

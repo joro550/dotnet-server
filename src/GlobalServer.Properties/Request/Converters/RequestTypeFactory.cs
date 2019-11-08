@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GlobalServer.Properties.Request.Converters
 {
     public static class RequestTypeFactory
     {
-        private static readonly List<RequestDescription> Descriptions = new List<RequestDescription>
+        private static readonly Dictionary<string, Type> Requests = new Dictionary<string, Type>
         {
-            new GetRequestDescription(),
-            new PostRequestDescription(),
-            new PutRequestDescription(),
-            new DeleteRequestDescription()
+            {"get", typeof(GetRequest) },
+            {"post", typeof(PostRequest) },
+            {"put", typeof(PutRequest) },
+            {"delete", typeof(DeleteRequest) }
         };
 
-        public static RequestDescription GetDescription(string method) =>
-            Descriptions.FirstOrDefault(requestDescription => requestDescription.Method == method) 
-            ?? new NullRequestDescription();
+        public static Type GetDescription(string method) =>
+            Requests.ContainsKey(method) 
+                ? Requests[method] 
+                : typeof(NullRequest);
     }
 }
