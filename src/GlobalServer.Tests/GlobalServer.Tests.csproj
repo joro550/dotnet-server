@@ -13,19 +13,29 @@
     <None Remove="Files\OnePostRequest.txt" />
     <None Remove="Files\OnePutRequest.txt" />
     <None Remove="Files\OneUnknownRequest.txt" />
+    <None Remove="Files\Responses\FromFile.json" />
+    <None Remove="Files\Responses\FromString.json" />
+    <None Remove="Files\Responses\IncrementalList.json" />
+    <None Remove="Files\Responses\RandomList.json" />
+    <None Remove="Files\Responses\Response.json" />
     <None Remove="Files\SslDisabled.txt" />
     <None Remove="Files\SslEnabled.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Files\Methods\OneDeleteRequest.txt" />
-    <EmbeddedResource Include="Files\Ports\SslDisabled.txt" />
-    <EmbeddedResource Include="Files\Ports\MultipleEndpoints.txt" />
-    <EmbeddedResource Include="Files\Ports\SslEnabled.txt" />
-    <EmbeddedResource Include="Files\Methods\OneUnknownRequest.txt" />
-    <EmbeddedResource Include="Files\Methods\OnePutRequest.txt" />
-    <EmbeddedResource Include="Files\Methods\OnePostRequest.txt" />
-    <EmbeddedResource Include="Files\Methods\OneGetRequest.txt" />
+    <EmbeddedResource Include="Files\Methods\OneDeleteRequest.json" />
+    <EmbeddedResource Include="Files\Ports\SslDisabled.json" />
+    <EmbeddedResource Include="Files\Ports\MultipleEndpoints.json" />
+    <EmbeddedResource Include="Files\Ports\SslEnabled.json" />
+    <EmbeddedResource Include="Files\Methods\OneUnknownRequest.json" />
+    <EmbeddedResource Include="Files\Methods\OnePutRequest.json" />
+    <EmbeddedResource Include="Files\Methods\OnePostRequest.json" />
+    <EmbeddedResource Include="Files\Methods\OneGetRequest.json" />
+    <EmbeddedResource Include="Files\Responses\FromString.json" />
+    <EmbeddedResource Include="Files\Responses\FromFile.json" />
+    <EmbeddedResource Include="Files\Responses\RandomList.json" />
+    <EmbeddedResource Include="Files\Responses\IncrementalList.json" />
+    <EmbeddedResource Include="Files\Responses\Response.json" />
   </ItemGroup>
 
   <ItemGroup>

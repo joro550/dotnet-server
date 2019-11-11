@@ -1,0 +1,20 @@
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "response", 
+        "status": 200,
+        "headers": [],
+        "contentType": "application/json",
+        "body": {
+          "Hello": "World"
+        }
+      }
+    }
+  ]
+}

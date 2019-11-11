@@ -11,5 +11,11 @@
         public const string SslEnabled = "Ports.SslEnabled";
         public const string SslDisabled = "Ports.SslDisabled";
         public const string MultipleEndpoints = "Ports.MultipleEndpoints";
+
+        public const string ResponseFromFile = "Responses.FromFile";
+        public const string ResponseFromString = "Responses.FromString";
+        public const string IncrementalListResponse = "Responses.IncrementalList";
+        public const string RandomListResponse = "Responses.RandomList";
+        public const string BasicResponse = "Responses.Response";
     }
 }

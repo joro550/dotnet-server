@@ -8,7 +8,7 @@ namespace GlobalServer.Tests.Files
         public static string GetFileContents(string fileName)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = $"GlobalServer.Tests.Files.{fileName}.txt";
+            var resourceName = $"GlobalServer.Tests.Files.{fileName}.json";
 
             using var stream = assembly.GetManifestResourceStream(resourceName);
             using var reader = new StreamReader(stream);
