@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using GlobalServer.Server;
 using GlobalServer.Settings;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace GlobalServer
 {
@@ -13,11 +14,19 @@ namespace GlobalServer
                 {"run-server", s => new ServerRunner(s)}
             };
 
-        public static ICommandRunner GetCommand(IGlobalServerSettings commandLineSettings)
+        public static ICommandRunner GetCommand(IGlobalServerSettings commandLineSettings) =>
+            Commands.ContainsKey(commandLineSettings.Command)
+                ? Commands[commandLineSettings.Command](commandLineSettings)
+                : new NullCommand();
+
+        private class NullCommand : ICommandRunner
         {
-            if (Commands.ContainsKey(commandLineSettings.Command))
-                return Commands[commandLineSettings.Command](commandLineSettings);
-            return new NullCommand();
+            public Task Run()
+                => Task.CompletedTask;
+
+            public void Dispose()
+            {
+            }
         }
     }
 }
