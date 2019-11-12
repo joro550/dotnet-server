@@ -6,5 +6,9 @@ namespace GlobalServer
     {
         public Task Run() 
             => Task.CompletedTask;
+
+        public void Dispose()
+        {
+        }
     }
 }
