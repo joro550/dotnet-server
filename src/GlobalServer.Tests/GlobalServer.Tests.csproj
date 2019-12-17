@@ -54,4 +54,8 @@
     <ProjectReference Include="..\GlobalServer\GlobalServer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Responses\" />
+  </ItemGroup>
+
 </Project>
