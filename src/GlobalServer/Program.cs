@@ -22,10 +22,7 @@ namespace GlobalServer
             {
                 var errors = runResult.Accept(new GetErrors());
                 foreach (var error in errors) Console.WriteLine(error);
-                return;
             }
-
-            Console.ReadKey();
         }
     }
 }
