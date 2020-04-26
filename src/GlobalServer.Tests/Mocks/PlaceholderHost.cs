@@ -7,7 +7,7 @@ namespace GlobalServer.Tests.Mocks
 {
     public class PlaceholderHost : IHost
     {
-        public IServiceProvider Services { get; }
+        public IServiceProvider Services { get; } = null;
 
         public Task StartAsync(CancellationToken cancellationToken = new CancellationToken())
         {
