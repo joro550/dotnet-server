@@ -6,6 +6,6 @@ namespace GlobalServer.Server.Visitors
     {
         public abstract T VisitValidationErrorResponse(ValidationErrorServerRunResponse response);
         public abstract T VisitServerRunningResponse(ServerRunningResponse response);
-        public abstract T VisitSuccessfulStartResponse(SuccessfulStartResponse response);
+        public abstract T VisitSuccessfulStartResponse();
     }
 }

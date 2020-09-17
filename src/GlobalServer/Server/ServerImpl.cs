@@ -15,11 +15,8 @@ namespace GlobalServer.Server
         {
         }
 
-        protected override ISettingsLoader GetSettingsLoader()
-        {
-            var propertiesFactory = PropertiesBuilder.Default();
-            return propertiesFactory.GetSettingsLoader();
-        }
+        protected override ISettingsLoader GetSettingsLoader() 
+            => PropertiesBuilder.Default().GetSettingsLoader();
 
         protected override Task StartServer(ISettings settings, CancellationToken cancellationToken)
         {

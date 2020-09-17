@@ -2,9 +2,9 @@
 
 namespace GlobalServer.Properties.Request
 {
-    public class PutRequest : RequestBase
+    public class HeadRequest : RequestBase
     {
         public override void Accept(QueryVisitor queryVisitor) 
-            => queryVisitor.VisitPutDescription(this);
+            => queryVisitor.VisitHeadDescription(this);
     }
 }

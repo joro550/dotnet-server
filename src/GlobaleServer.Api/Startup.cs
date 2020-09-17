@@ -14,12 +14,11 @@ namespace GlobalServer.Api
         {
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(routeBuilder =>
             {
                 foreach (var interaction in Configuration.Instance.Settings.Interactions)
                 {
-                    var addRoutingRequest = new AddRouting(endpoints, interaction.Response);
-                    interaction.Request.Accept(addRoutingRequest);
+                    interaction.Request.Accept(new AddRouting(routeBuilder, interaction.Response));
                 }
             });
         }

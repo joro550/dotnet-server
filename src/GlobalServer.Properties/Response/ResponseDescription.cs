@@ -1,17 +1,18 @@
 ﻿using System.Net.Mime;
+using GlobalServer.Properties.Response.Models;
 using Newtonsoft.Json;
 
 namespace GlobalServer.Properties.Response
 {
-    public class ResponseDescription : ResponseBase
+    public class ResponseDescription : SingleResponseBase
     {
         [JsonProperty("body")]
         public object Body { get; set; }
-        
-        public override string GetContentType() 
+
+        protected override string GetContentType() 
             => MediaTypeNames.Application.Json;
 
-        public override string GetResponse()
+        protected override string GetResponse()
             => JsonConvert.SerializeObject(Body);
     }
 }

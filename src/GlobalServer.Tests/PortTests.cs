@@ -14,7 +14,7 @@ namespace GlobalServer.Tests
         [Trait("Category","SkipOnCI")]
         public async Task ServerRespondsOnConfiguredSecurePort()
         {
-            const string file = FileNames.SslEnabled;
+            const string file = FileNames.Ports.SslEnabled;
             var settings = new GlobalServerSettings { FileName = file };
 
             using var server = new TestRealServerImpl(settings);
@@ -33,7 +33,7 @@ namespace GlobalServer.Tests
         [Fact]
         public async Task ServerRespondsOnConfiguredPort()
         {
-            const string file = FileNames.SslDisabled;
+            const string file = FileNames.Ports.SslDisabled;
             var settings = new GlobalServerSettings { FileName = file };
 
             using var server = new TestRealServerImpl(settings);
@@ -53,7 +53,7 @@ namespace GlobalServer.Tests
         [Trait("Category","SkipOnCI")]
         public async Task ServerRespondsOnMultipleConfiguredPort()
         {
-            const string file = FileNames.MultipleEndpoints;
+            const string file = FileNames.Ports.MultipleEndpoints;
             var settings = new GlobalServerSettings { FileName = file };
 
             using var server = new TestRealServerImpl(settings);

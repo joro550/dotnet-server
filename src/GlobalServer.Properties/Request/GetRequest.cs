@@ -4,10 +4,7 @@ namespace GlobalServer.Properties.Request
 {
     public class GetRequest : RequestBase
     {
-        internal override string Method => "get";
-        public override void Accept(Visitor visitor)
-        {
-            visitor.VisitGetDescription(this);
-        }
+        public override void Accept(QueryVisitor queryVisitor) 
+            => queryVisitor.VisitGetDescription(this);
     }
 }

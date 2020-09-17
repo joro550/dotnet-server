@@ -1,9 +1,7 @@
 ﻿using System;
 using Config.Net;
-using GlobalServer.Server;
 using GlobalServer.Settings;
 using System.Threading.Tasks;
-using GlobalServer.Server.Visitors;
 
 namespace GlobalServer
 {
@@ -11,19 +9,16 @@ namespace GlobalServer
     {
         private static async Task Main()
         {
-            var commandLineSettings = new ConfigurationBuilder<IGlobalServerSettings>()
+            await CommandFactory.GetCommand(GetSettings()).Run();
+
+            // Keep console open
+            Console.ReadKey();
+        }
+
+        private static IGlobalServerSettings GetSettings() =>
+            new ConfigurationBuilder<IGlobalServerSettings>()
                 .UseCommandLineArgs()
                 .Build();
-
-            using var server = new ServerImpl(commandLineSettings);
-            var runResult = await server.Run();
-
-            if (!runResult.Success)
-            {
-                var errors = runResult.Accept(new GetErrors());
-                foreach (var error in errors) Console.WriteLine(error);
-            }
-        }
     }
 }
 
