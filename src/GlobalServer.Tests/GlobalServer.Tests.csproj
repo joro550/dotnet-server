@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Files\Methods\OneDeleteRequest.json" />
+    <EmbeddedResource Include="Files\Methods\OneHeadRequest.json" />
+    <EmbeddedResource Include="Files\Methods\OneOptionsRequest.json" />
     <EmbeddedResource Include="Files\Ports\SslDisabled.json" />
     <EmbeddedResource Include="Files\Ports\MultipleEndpoints.json" />
     <EmbeddedResource Include="Files\Ports\SslEnabled.json" />

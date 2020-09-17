@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.IO.Abstractions.TestingHelpers;
+using System.Net.Http;
+using System.Threading;
 using GlobalServer.Server;
 using GlobalServer.Settings;
 using System.Threading.Tasks;
@@ -11,7 +13,7 @@ namespace GlobalServer.Tests.Mocks
     public class TestServerImpl : ServerBase
     {
         public MockFileSystemAdapter FileSystem { get; }
-        public TestGlobalServer WebFactory { get; private set; }
+        private TestGlobalServer WebFactory { get; set; }
 
         public TestServerImpl(IGlobalServerSettings settings) : base(settings)
         {
@@ -37,8 +39,14 @@ namespace GlobalServer.Tests.Mocks
 
         public override void Dispose()
         {
-            WebFactory?.Dispose();
             base.Dispose();
+            WebFactory?.Dispose();
         }
+
+        public HttpClient CreateClient() 
+            => WebFactory.CreateClient();
+
+        public void AddFile(string fileName, string fileContents) 
+            => FileSystem.AddFile(fileName, new MockFileData(fileContents));
     }
 }

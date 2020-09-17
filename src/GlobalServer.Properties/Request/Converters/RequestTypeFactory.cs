@@ -7,10 +7,12 @@ namespace GlobalServer.Properties.Request.Converters
     {
         private static readonly Dictionary<string, Type> Requests = new Dictionary<string, Type>
         {
-            {"get", typeof(GetRequest) },
-            {"post", typeof(PostRequest) },
-            {"put", typeof(PutRequest) },
-            {"delete", typeof(DeleteRequest) }
+            {"get", typeof(GetRequest)},
+            {"post", typeof(PostRequest)},
+            {"put", typeof(PutRequest)},
+            {"delete", typeof(DeleteRequest)},
+            {"head", typeof(HeadRequest)},
+            // {"options", typeof(OptionsRequest)},
         };
 
         public static Type GetDescription(string method) =>

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using GlobalServer.Properties.Request;
-using GlobalServer.Properties.Response;
+using static System.Net.Http.HttpMethod;
 using GlobalServer.Properties.Request.Queries;
 using GlobalServer.Properties.Response.Models;
 
@@ -30,6 +30,12 @@ namespace GlobalServer.Api
 
         public override void VisitPutDescription(PutRequest element) 
             => _builder.MapPut(element.Path, RequestDelegate());
+
+        public override void VisitHeadDescription(HeadRequest element) 
+            => _builder.MapMethods(element.Path, new []{ Head.Method }, RequestDelegate());
+
+        public override void VisitOptionsDescription(OptionsRequest element)
+            => _builder.MapMethods(element.Path, new []{ Options.Method }, RequestDelegate());
 
         public override void VisitNullDescription()
         {

@@ -1,0 +1,17 @@
+{
+    "interactions": [
+        {
+            "description": "A GET request to retrieve a thing",
+            "request": {
+                "method": "head",
+                "path": "/things/1234"
+            },
+            "response": {
+                "status": 200,
+                "headers": [],
+                "body": {
+                }
+            }
+        }
+    ]
+}

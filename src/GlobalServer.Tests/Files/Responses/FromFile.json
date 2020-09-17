@@ -10,8 +10,64 @@
         "type": "fromFile",
         "status": 200,
         "headers": [],
-        "contentType": "",
-        "fileName": ""
+        "contentType": "application/json",
+        "fileName": "response.txt"
+      }
+    },
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "post",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "fromFile",
+        "status": 200,
+        "headers": [],
+        "contentType": "application/json",
+        "fileName": "response.txt"
+      }
+    },
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "delete",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "fromFile",
+        "status": 200,
+        "headers": [],
+        "contentType": "application/json",
+        "fileName": "response.txt"
+      }
+    },
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "head",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "fromFile",
+        "status": 200,
+        "headers": [],
+        "contentType": "application/json",
+        "fileName": "response.txt"
+      }
+    },
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "put",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "fromFile",
+        "status": 200,
+        "headers": [],
+        "contentType": "application/json",
+        "fileName": "response.txt"
       }
     }
   ]
