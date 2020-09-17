@@ -7,7 +7,7 @@ namespace GlobalServer.Properties.Response
 {
     public class IncrementalListResponse : ResponseBase
     {
-        private static int _iterator = 0; 
+        private int _iterator = 0; 
         
         [JsonProperty("values")]
         public List<ListContent> Values { get; set; }

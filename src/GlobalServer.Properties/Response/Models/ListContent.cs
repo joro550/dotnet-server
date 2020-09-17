@@ -5,7 +5,7 @@ namespace GlobalServer.Properties.Response.Models
 {
     public class ListContent
     {
-        [JsonProperty("statusCode")]
+        [JsonProperty("status")]
         public int StatusCode { get; set; }
         
         [JsonProperty("headers")]

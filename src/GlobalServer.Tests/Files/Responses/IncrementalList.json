@@ -12,14 +12,130 @@
           {
             "headers": [],
             "status": 200,
-            "contentType": "",
-            "content": ""
+            "contentType": "application/json",
+            "content": {
+              "Key1": "Value1"
+            }
           },
           {
             "headers": [],
             "status": 200,
             "contentType": "",
-            "content": ""
+            "content": {
+              "Key2": "Value2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "post",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "incrementalList",
+        "values": [
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "application/json",
+            "content": {
+              "Key1": "Value1"
+            }
+          },
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "",
+            "content": {
+              "Key2": "Value2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "delete",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "incrementalList",
+        "values": [
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "application/json",
+            "content": {
+              "Key1": "Value1"
+            }
+          },
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "",
+            "content": {
+              "Key2": "Value2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "head",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "incrementalList",
+        "values": [
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "application/json",
+            "content": {
+              "Key1": "Value1"
+            }
+          },
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "",
+            "content": {
+              "Key2": "Value2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "put",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "incrementalList",
+        "values": [
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "application/json",
+            "content": {
+              "Key1": "Value1"
+            }
+          },
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "",
+            "content": {
+              "Key2": "Value2"
+            }
           }
         ]
       }
