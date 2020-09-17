@@ -14,7 +14,7 @@ namespace GlobalServer.Properties.Response.Models
         protected IHeaderDictionary FromHeaderDescription(IEnumerable<HeaderDescription> headers)
         {
             var headerDescriptions = headers as HeaderDescription[] ?? headers.ToArray();
-            if (!headerDescriptions.Any())
+            if (headerDescriptions == null || !headerDescriptions.Any())
                 return new HeaderDictionary();
             
             var headerDictionary = new HeaderDictionary();

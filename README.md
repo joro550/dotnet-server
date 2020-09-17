@@ -190,15 +190,6 @@ You can also update via the upgrade command
 
 `dotnet tool update DotNetSimpleServer -g`
 
-## Development 
-When you think you have a good working solution I would advice you to try it out, to do this head into the `/src` folder and run `dotnet pack` this will produce a `\nupkg` folder under the `GlobalServer` project, navigate into the (GlobalServer) folder and run this command:
-
-```
-dotnet tool install --global --add-source ./nupkg DotNetSimpleServer
-```
-
-this will install the global tool on your system from the nuget package you have just outputed onto your machine, to run it simply type `dotnet-server`
-
 ## Contributing
 If you want to contribute, that's great, please dive into the code!
 
