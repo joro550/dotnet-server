@@ -26,6 +26,7 @@ Feel free to implement this in a different language though, just don't send me t
 ## How do I configure the server?
 There is a good example in the repository called `file-example.txt` have a look in there for now, hopefully I can add some good documentation soon.
 
+### Simple configuration
 ```
 {
     "server" : {
@@ -54,6 +55,125 @@ There is a good example in the repository called `file-example.txt` have a look 
 }
 ```
 
+### Response from a file
+Use case: you want to have an editable response model or just have a long response body then put it into a file and we'll load it into the response body
+
+```
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "fromFile",
+        "status": 200,
+        "headers": [],
+        "contentType": "application/json",
+        "fileName": "c:\users\joro550\response.txt"
+      }
+    }
+}
+```
+
+### From string
+Use case: You don't nessasarily want an object, maybe you just want a some words
+
+```
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "fromString",
+        "status": 200,
+        "headers": [],
+        "contentType": "text/plain",
+        "content": "Hello World"
+      }
+    }
+}
+```
+
+### Incremental from list
+
+Use case: You want to test a series of responses, just add them to the list, these will be returned on after another
+
+```
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "incrementalList",
+        "values": [
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "application/json",
+            "content": {
+              "Key1": "Value1"
+            }
+          },
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "",
+            "content": {
+              "Key2": "Value2"
+            }
+          }
+        ]
+      }
+    }
+}
+```
+
+
+### Random from list
+
+Use case: You want to test a series of responses, just add them to the list, these will be returned randomly
+
+```
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "randomList",
+        "status": 200,
+        "values": [
+          {
+            "headers": [],
+            "contentType": "",
+            "content": ""
+          },
+          {
+            "headers": [],
+            "contentType": "",
+            "content": ""
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
 ## Future development?
 - Random failures?
 - Conditional logic on result?
@@ -69,6 +189,15 @@ If you follow the nuget link up top you will be sent to the nuget feed where it 
 You can also update via the upgrade command
 
 `dotnet tool update DotNetSimpleServer -g`
+
+## Development 
+When you think you have a good working solution I would advice you to try it out, to do this head into the `/src` folder and run `dotnet pack` this will produce a `\nupkg` folder under the `GlobalServer` project, navigate into the folder and run this command:
+
+```
+dotnet tool install --global --add-source ./nupkg dotnet-server-dev
+```
+
+this will install the global tool on your system from the nuget package you have just outputed onto your machine, to run it simply type `dotnet-server-dev` instead of the usual `dotnet-server` as that is the new name we have given it via the command, you will need to uninstall and reinstall everytime you pack a new version (yes i realize that this is annoying take it up with microsoft)
 
 ## Contributing
 If you want to contribute, that's great, please dive into the code!

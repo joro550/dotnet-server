@@ -1,15 +1,16 @@
 {
     "interactions": [
         {
-            "description": "A POST request to retrieve a thing",
+            "description": "A GET request to retrieve a thing",
             "request": {
-                "method": "delete",
+                "method": "head",
                 "path": "/things/1234"
             },
             "response": {
                 "status": 200,
                 "headers": [],
-                "body": {}
+                "body": {
+                }
             }
         }
     ]

@@ -1,23 +1,21 @@
 using Xunit;
 using System;
-using System.Threading.Tasks;
-using GlobalServer.Properties;
+using GlobalServer.Tests.Files;
 using GlobalServer.Properties.Request;
-using GlobalServer.Properties.Initialization;
+using GlobalServer.Properties.Response;
 using static GlobalServer.Tests.Files.FileNames;
 using static GlobalServer.Tests.Files.FileLoader;
-using static GlobalServer.Tests.Mocks.MockFileSystemAdapter;
 
 namespace GlobalServer.Tests
 {
     public class SettingsLoaderTests
     {
         [Theory]
-        [InlineData(OneGetRequest, typeof(GetRequest))]
-        [InlineData(OnePutRequest, typeof(PutRequest))]
-        [InlineData(OnePostRequest, typeof(PostRequest))]
-        [InlineData(OneUnknownRequest, typeof(NullRequest))]
-        [InlineData(OneDeleteRequest, typeof(DeleteRequest))]
+        [InlineData(Requests.OneGetRequest, typeof(GetRequest))]
+        [InlineData(Requests.OnePutRequest, typeof(PutRequest))]
+        [InlineData(Requests.OnePostRequest, typeof(PostRequest))]
+        [InlineData(Requests.OneUnknownRequest, typeof(NullRequest))]
+        [InlineData(Requests.OneDeleteRequest, typeof(DeleteRequest))]
         public void GivenFileWithSpecifiedRequest_ThenRequestDescriptionIsCorrectType(string fileName, Type requestType)
         {
             var settings = LoadSettings(fileName);
@@ -28,16 +26,15 @@ namespace GlobalServer.Tests
             Assert.IsType(requestType, interaction.Request);
         }
 
-        private static Task<ISettings> LoadSettings(string fileName)
+        [Theory]
+        [InlineData(FileNames.Responses.RandomListResponse, typeof(RandomFromListResponse))]
+        [InlineData(FileNames.Responses.ResponseFromFile, typeof(ResponseFromFile))]
+        [InlineData(FileNames.Responses.ResponseFromString, typeof(ResponseFromString))]
+        [InlineData(FileNames.Responses.IncrementalListResponse, typeof(IncrementalListResponse))]
+        public void EachResponseCanBeLoadedFromConfig(string fileName, Type expectedType)
         {
-            const string fileLocation = @"c:\MyFile.txt";
-            var fileSystem = Create(fileLocation, GetFileContents(fileName));
-
-            var propertiesBuilder = new PropertiesBuilder()
-                .WithFileSystem(fileSystem)
-                .Build();
-
-            return propertiesBuilder.GetSettingsLoader().Load(fileLocation);
+            var settings = FileLoader.LoadSettings(fileName);
+            Assert.IsType(expectedType, settings.Result.Interactions[0].Response);
         }
     }
 }

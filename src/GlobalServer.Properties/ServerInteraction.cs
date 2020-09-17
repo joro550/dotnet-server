@@ -3,6 +3,7 @@ using GlobalServer.Properties.Request;
 using GlobalServer.Properties.Response;
 using GlobalServer.Properties.Request.Converters;
 using GlobalServer.Properties.Response.Converters;
+using GlobalServer.Properties.Response.Models;
 
 namespace GlobalServer.Properties
 {

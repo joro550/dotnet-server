@@ -1,4 +1,5 @@
 ﻿using System;
+using GlobalServer.Properties.Response.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

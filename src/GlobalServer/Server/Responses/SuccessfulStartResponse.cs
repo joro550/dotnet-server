@@ -7,6 +7,6 @@ namespace GlobalServer.Server.Responses
         public override bool Success => true;
 
         public override T Accept<T>(RunResponseVisitor<T> visitor) 
-            => visitor.VisitSuccessfulStartResponse(this);
+            => visitor.VisitSuccessfulStartResponse();
     }
 }

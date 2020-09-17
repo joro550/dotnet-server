@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using GlobalServer.Properties.Request;
-using GlobalServer.Properties.Response;
+using static System.Net.Http.HttpMethod;
 using GlobalServer.Properties.Request.Queries;
+using GlobalServer.Properties.Response.Models;
 
 namespace GlobalServer.Api
 {
-    public class AddRouting : Visitor
+    public class AddRouting : QueryVisitor
     {
         private readonly ResponseBase _response;
         private readonly IEndpointRouteBuilder _builder;
@@ -30,19 +31,27 @@ namespace GlobalServer.Api
         public override void VisitPutDescription(PutRequest element) 
             => _builder.MapPut(element.Path, RequestDelegate());
 
-        public override void VisitNullDescription(NullRequest element)
+        public override void VisitHeadDescription(HeadRequest element) 
+            => _builder.MapMethods(element.Path, new []{ Head.Method }, RequestDelegate());
+
+        public override void VisitOptionsDescription(OptionsRequest element)
+            => _builder.MapMethods(element.Path, new []{ Options.Method }, RequestDelegate());
+
+        public override void VisitNullDescription()
         {
         }
 
         private RequestDelegate RequestDelegate() =>
             async httpContext =>
             {
-                foreach (var (key, value) in _response.GetHeaders())
+                var response = _response.GetResponseModel();
+                
+                foreach (var (key, value) in response.HeaderDictionary)
                     httpContext.Response.Headers.Add(key, value);
 
-                httpContext.Response.StatusCode = _response.GetStatusCode();
-                httpContext.Response.ContentType = _response.GetContentType();
-                await httpContext.Response.WriteAsync(_response.GetResponse());
+                httpContext.Response.StatusCode = response.StatusCode;
+                httpContext.Response.ContentType = response.ContentType;
+                await httpContext.Response.WriteAsync(response.Content);
             };
     }
 }
