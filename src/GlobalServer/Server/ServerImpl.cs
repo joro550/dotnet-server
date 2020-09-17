@@ -4,6 +4,7 @@ using GlobalServer.Settings;
 using System.Threading.Tasks;
 using GlobalServer.Properties;
 using GlobalServer.Properties.Initialization;
+using Microsoft.Extensions.Hosting;
 
 namespace GlobalServer.Server
 {
@@ -24,7 +25,7 @@ namespace GlobalServer.Server
             Host = GlobalServerApi.CreateHostBuilder(new string[0])
                 .Build();
 
-            return Host.StartAsync(cancellationToken);
+            return Host.RunAsync(cancellationToken);
         }
     }
 }
