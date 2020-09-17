@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 
 namespace GlobalServer.Properties.Response.Models
@@ -12,8 +13,12 @@ namespace GlobalServer.Properties.Response.Models
 
         protected IHeaderDictionary FromHeaderDescription(IEnumerable<HeaderDescription> headers)
         {
+            var headerDescriptions = headers as HeaderDescription[] ?? headers.ToArray();
+            if (headerDescriptions == null || !headerDescriptions.Any())
+                return new HeaderDictionary();
+            
             var headerDictionary = new HeaderDictionary();
-            foreach (var (key, value) in headers) 
+            foreach (var (key, value) in headerDescriptions) 
                 headerDictionary.Add(key, value);
             return headerDictionary;
         }
