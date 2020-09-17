@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Routing;
 using GlobalServer.Properties.Request;
 using GlobalServer.Properties.Response;
 using GlobalServer.Properties.Request.Queries;
+using GlobalServer.Properties.Response.Models;
 
 namespace GlobalServer.Api
 {
@@ -37,12 +38,14 @@ namespace GlobalServer.Api
         private RequestDelegate RequestDelegate() =>
             async httpContext =>
             {
-                foreach (var (key, value) in _response.GetHeaders())
+                var response = _response.GetResponseModel();
+                
+                foreach (var (key, value) in response.HeaderDictionary)
                     httpContext.Response.Headers.Add(key, value);
 
-                httpContext.Response.StatusCode = _response.GetStatusCode();
-                httpContext.Response.ContentType = _response.GetContentType();
-                await httpContext.Response.WriteAsync(_response.GetResponse());
+                httpContext.Response.StatusCode = response.StatusCode;
+                httpContext.Response.ContentType = response.ContentType;
+                await httpContext.Response.WriteAsync(response.Content);
             };
     }
 }

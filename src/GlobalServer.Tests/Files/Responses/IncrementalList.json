@@ -8,15 +8,16 @@
       },
       "response": {
         "type": "incrementalList",
-        "status": 200,
         "values": [
           {
             "headers": [],
+            "status": 200,
             "contentType": "",
             "content": ""
           },
           {
             "headers": [],
+            "status": 200,
             "contentType": "",
             "content": ""
           }

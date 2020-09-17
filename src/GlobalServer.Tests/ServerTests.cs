@@ -15,13 +15,7 @@ namespace GlobalServer.Tests
         [Fact]
         public async Task ServerRespondsToConfiguredGetRequest()
         {
-            const string file = OneGetRequest;
-            var settings = new GlobalServerSettings{FileName = file};
-
-            using var server = new TestServerImpl(settings);
-            server.FileSystem.AddFile(file, GetFileContents(file));
-            await server.Run();
-
+            var server = await SetupServer(OneGetRequest);
             using var client = server.WebFactory.CreateClient();
 
             var result = await client.GetAsync("/things/1234");
@@ -34,13 +28,7 @@ namespace GlobalServer.Tests
         [Fact]
         public async Task ServerRespondsToConfiguredPostRequest()
         {
-            const string file = OnePostRequest;
-            var settings = new GlobalServerSettings{FileName = file};
-
-            using var server = new TestServerImpl(settings);
-            server.FileSystem.AddFile(file, GetFileContents(file));
-            await server.Run();
-
+            var server = await SetupServer(OnePostRequest);
             using var client = server.WebFactory.CreateClient();
 
             var result = await client.PostAsync("/things/1234", new StringContent(string.Empty));
@@ -53,13 +41,7 @@ namespace GlobalServer.Tests
         [Fact]
         public async Task ServerRespondsToConfiguredPutRequest()
         {
-            const string file = OnePutRequest;
-            var settings = new GlobalServerSettings{FileName = file};
-
-            using var server = new TestServerImpl(settings);
-            server.FileSystem.AddFile(file, GetFileContents(file));
-            await server.Run();
-
+            var server = await SetupServer(OnePutRequest);
             using var client = server.WebFactory.CreateClient();
 
             var result = await client.PutAsync("/things/1234", new StringContent(string.Empty));
@@ -68,17 +50,11 @@ namespace GlobalServer.Tests
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             Assert.Equal("{}", resultString);
         }
-        
+
         [Fact]
         public async Task ServerRespondsToConfiguredDeleteRequest()
         {
-            const string file = OneDeleteRequest;
-            var settings = new GlobalServerSettings{FileName = file};
-
-            using var server = new TestServerImpl(settings);
-            server.FileSystem.AddFile(file, GetFileContents(file));
-            await server.Run();
-
+            var server = await SetupServer(OneDeleteRequest);
             using var client = server.WebFactory.CreateClient();
 
             var result = await client.DeleteAsync("/things/1234");
@@ -93,14 +69,9 @@ namespace GlobalServer.Tests
             [Fact]
             public async Task WhenAServerGetsMoreThanOneRunRequest()
             {
-                const string file = OneDeleteRequest;
-                var settings = new GlobalServerSettings { FileName = file };
-
-                using var server = new TestServerImpl(settings);
-                server.FileSystem.AddFile(file, GetFileContents(file));
-                await server.Run();
-
+                var server = await SetupServer(OneDeleteRequest);
                 var runResponse = await server.Run();
+                    
                 Assert.False(runResponse.Success);
                 var serverRunningResponse = Assert.IsType<ServerRunningResponse>(runResponse);
                 Assert.Equal("Server is all ready running", serverRunningResponse.Error);
@@ -116,6 +87,16 @@ namespace GlobalServer.Tests
                 var serverRunningResponse = Assert.IsType<ValidationErrorServerRunResponse>(runResponse);
                 Assert.Contains("No filename was specified, please specify a file i.e. dotnet-server -fileName:C:\\file.txt", serverRunningResponse.ValidationErrors);
             }
+        }
+
+        private static async Task<TestServerImpl> SetupServer(string configFileName)
+        {
+            var settings = new GlobalServerSettings {FileName = configFileName};
+
+            using var server = new TestServerImpl(settings);
+            server.FileSystem.AddFile(configFileName, GetFileContents(configFileName));
+            await server.Run();
+            return server;
         }
     }
 }

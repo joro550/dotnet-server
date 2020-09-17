@@ -1,13 +1,15 @@
-﻿namespace GlobalServer.Properties.Response
+﻿using GlobalServer.Properties.Response.Models;
+
+namespace GlobalServer.Properties.Response
 {
-    public class ResponseFromFile : ResponseBase
+    public class ResponseFromFile : SingleResponseBase
     {
-        public override string GetContentType()
+        protected override string GetContentType()
         {
             throw new System.NotImplementedException();
         }
 
-        public override string GetResponse()
+        protected override string GetResponse()
         {
             throw new System.NotImplementedException();
         }

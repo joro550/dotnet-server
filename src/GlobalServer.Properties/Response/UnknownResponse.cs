@@ -1,11 +1,13 @@
-﻿namespace GlobalServer.Properties.Response
+﻿using GlobalServer.Properties.Response.Models;
+
+namespace GlobalServer.Properties.Response
 {
-    public class UnknownResponse : ResponseBase
+    public class UnknownResponse : SingleResponseBase
     {
-        public override string GetContentType() 
+        protected override string GetContentType() 
             => string.Empty;
 
-        public override string GetResponse() 
+        protected override string GetResponse() 
             => string.Empty;
     }
 }
