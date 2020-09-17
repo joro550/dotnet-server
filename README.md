@@ -26,6 +26,7 @@ Feel free to implement this in a different language though, just don't send me t
 ## How do I configure the server?
 There is a good example in the repository called `file-example.txt` have a look in there for now, hopefully I can add some good documentation soon.
 
+### Simple configuration
 ```
 {
     "server" : {
@@ -51,6 +52,125 @@ There is a good example in the repository called `file-example.txt` have a look 
                 }
             }
         }
+}
+```
+
+### Response from a file
+Use case: you want to have an editable response model or just have a long response body then put it into a file and we'll load it into the response body
+
+```
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "fromFile",
+        "status": 200,
+        "headers": [],
+        "contentType": "application/json",
+        "fileName": "c:\users\joro550\response.txt"
+      }
+    }
+}
+```
+
+### From string
+Use case: You don't nessasarily want an object, maybe you just want a some words
+
+```
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "fromString",
+        "status": 200,
+        "headers": [],
+        "contentType": "text/plain",
+        "content": "Hello World"
+      }
+    }
+}
+```
+
+### Incremental from list
+
+Use case: You want to test a series of responses, just add them to the list, these will be returned on after another
+
+```
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "incrementalList",
+        "values": [
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "application/json",
+            "content": {
+              "Key1": "Value1"
+            }
+          },
+          {
+            "headers": [],
+            "status": 200,
+            "contentType": "",
+            "content": {
+              "Key2": "Value2"
+            }
+          }
+        ]
+      }
+    }
+}
+```
+
+
+### Incremental from list
+
+Use case: You want to test a series of responses, just add them to the list, these will be returned randomly
+
+```
+{
+  "interactions": [
+    {
+      "description": "A GET request to retrieve a thing",
+      "request": {
+        "method": "get",
+        "path": "/things/1234"
+      },
+      "response": {
+        "type": "randomList",
+        "status": 200,
+        "values": [
+          {
+            "headers": [],
+            "contentType": "",
+            "content": ""
+          },
+          {
+            "headers": [],
+            "contentType": "",
+            "content": ""
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
 
