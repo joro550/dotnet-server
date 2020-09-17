@@ -1,28 +1,40 @@
-﻿using GlobalServer.Properties.Response.Models;
+﻿using System;
+using System.Collections.Generic;
+using GlobalServer.Properties.Response.Models;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace GlobalServer.Properties.Response
 {
     public class RandomFromListResponse : ResponseBase
     {
-        protected override int GetStatusCode()
-        {
-            throw new System.NotImplementedException();
-        }
+        private static int _iterator = 0; 
+        private readonly Random _random = new Random();
+        
+        [JsonProperty("values")]
+        public List<ListContent> Values { get; set; }
 
-        protected override IHeaderDictionary GetHeaders()
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override int GetStatusCode() 
+            => Values[_iterator].StatusCode;
 
-        protected override string GetContentType()
-        {
-            throw new System.NotImplementedException();
-        }
+        protected override IHeaderDictionary GetHeaders() 
+            => FromHeaderDescription(Values[_iterator].Headers);
 
-        protected override string GetResponse()
+        protected override string GetContentType() 
+            => Values[_iterator].ContentType;
+
+        protected override string GetResponse() 
+            => JsonConvert.SerializeObject(Values[_iterator].Content);
+
+        public override Models.Response GetResponseModel()
         {
-            throw new System.NotImplementedException();
+            var model = base.GetResponseModel();
+            _iterator = _random.Next(0, Values.Count);
+            
+            if (_iterator >= Values.Count)
+                _iterator = 0;
+            
+            return model;
         }
     }
 }
