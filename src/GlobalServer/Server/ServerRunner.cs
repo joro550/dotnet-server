@@ -22,7 +22,7 @@ namespace GlobalServer.Server
 
             if (!runResult.Success)
             {
-                var errors = runResult.Accept(new GetErrors());
+                var errors = runResult.Accept(new ErrorResponseVisitor());
                 foreach (var error in errors) Console.WriteLine(error);
             }
         }

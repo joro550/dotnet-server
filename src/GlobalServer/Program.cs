@@ -9,9 +9,7 @@ namespace GlobalServer
     {
         private static async Task Main()
         {
-            using var commandRunner = CommandFactory.GetCommand(GetSettings());
-
-            await commandRunner.Run();
+            await CommandFactory.GetCommand(GetSettings()).Run();
 
             // Keep console open
             Console.ReadKey();

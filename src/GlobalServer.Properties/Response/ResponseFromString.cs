@@ -1,17 +1,14 @@
 ﻿using GlobalServer.Properties.Response.Models;
+using Newtonsoft.Json;
 
 namespace GlobalServer.Properties.Response
 {
     public class ResponseFromString : SingleResponseBase
     {
-        protected override string GetContentType()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override string GetResponse()
-        {
-            throw new System.NotImplementedException();
-        }
+        [JsonProperty("content")]
+        public string Content { get; set; }
+        
+        protected override string GetResponse() 
+            => Content;
     }
 }

@@ -11,7 +11,7 @@ namespace GlobalServer
         private static Dictionary<string, Func<IGlobalServerSettings, ICommandRunner>> Commands { get; } =
             new Dictionary<string, Func<IGlobalServerSettings, ICommandRunner>>
             {
-                {"run-server", s => new ServerRunner(s)}
+                {"run-server", settings => new ServerRunner(settings)}
             };
 
         public static ICommandRunner GetCommand(IGlobalServerSettings commandLineSettings) =>

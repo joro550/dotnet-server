@@ -1,17 +1,20 @@
-﻿using GlobalServer.Properties.Response.Models;
+﻿using System.IO;
+using GlobalServer.Properties.Initialization;
+using GlobalServer.Properties.Response.Models;
+using Newtonsoft.Json;
 
 namespace GlobalServer.Properties.Response
 {
     public class ResponseFromFile : SingleResponseBase
     {
-        protected override string GetContentType()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        [JsonProperty("fileName")]
+        public string FileName { get; set; }
+        
         protected override string GetResponse()
         {
-            throw new System.NotImplementedException();
+            using var streamReader = new StreamReader(
+                Configuration.Instance.FileSystem.File.OpenRead(FileName));
+            return streamReader.ReadToEnd();
         }
     }
 }

@@ -8,7 +8,7 @@ using GlobalServer.Properties.Response.Models;
 
 namespace GlobalServer.Api
 {
-    public class AddRouting : Visitor
+    public class AddRouting : QueryVisitor
     {
         private readonly ResponseBase _response;
         private readonly IEndpointRouteBuilder _builder;
@@ -31,7 +31,7 @@ namespace GlobalServer.Api
         public override void VisitPutDescription(PutRequest element) 
             => _builder.MapPut(element.Path, RequestDelegate());
 
-        public override void VisitNullDescription(NullRequest element)
+        public override void VisitNullDescription()
         {
         }
 

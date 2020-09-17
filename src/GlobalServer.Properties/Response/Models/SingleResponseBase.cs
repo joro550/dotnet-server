@@ -10,19 +10,19 @@ namespace GlobalServer.Properties.Response.Models
         [JsonProperty("status")]
         public HttpStatusCode StatusCode { get; set; }
 
+        [JsonProperty("contentType")] 
+        public string ContentType { get; set; }
+
         [JsonProperty("headers")]
         public List<HeaderDescription> Headers { get; set; }
 
         protected override int GetStatusCode() 
             => (int) StatusCode;
 
+        protected override string GetContentType() 
+            => ContentType;
 
-        protected override IHeaderDictionary GetHeaders()
-        {
-            var headerDictionary = new HeaderDictionary();
-            foreach (var headers in Headers) 
-                headerDictionary.Add(headers.Key, headers.Value);
-            return headerDictionary;
-        }
+        protected override IHeaderDictionary GetHeaders() 
+            => FromHeaderDescription(Headers);
     }
 }
