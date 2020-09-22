@@ -52,6 +52,7 @@ There is a good example in the repository called `file-example.txt` have a look 
                 }
             }
         }
+    ]
 }
 ```
 
@@ -75,6 +76,7 @@ Use case: you want to have an editable response model or just have a long respon
         "fileName": "c:\users\joro550\response.txt"
       }
     }
+  ]
 }
 ```
 
@@ -98,6 +100,7 @@ Use case: You don't nessasarily want an object, maybe you just want a some words
         "content": "Hello World"
       }
     }
+  ]
 }
 ```
 
@@ -136,6 +139,7 @@ Use case: You want to test a series of responses, just add them to the list, the
         ]
       }
     }
+  ]
 }
 ```
 
