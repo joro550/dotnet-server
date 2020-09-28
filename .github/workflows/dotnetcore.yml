@@ -12,10 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      HASH: $(git rev-parse --short "$GITHUB_SHA")
-      BRANCH: ${GITHUB_REF##*/}
-      PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
     steps:
     - uses: actions/checkout@v1
