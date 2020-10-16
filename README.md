@@ -194,6 +194,10 @@ You can also update via the upgrade command
 
 `dotnet tool update DotNetSimpleServer -g`
 
+## How do I run this thing?
+
+Once you have it installed you simply type `dotnet server -fileName:path/to/json/file` and it will run an asp net core server in your terminal
+
 ## Contributing
 If you want to contribute, that's great, please dive into the code!
 
