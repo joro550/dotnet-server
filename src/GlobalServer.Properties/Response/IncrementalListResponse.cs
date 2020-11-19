@@ -16,7 +16,7 @@ namespace GlobalServer.Properties.Response
             => Values[_iterator].StatusCode;
 
         protected override IHeaderDictionary GetHeaders() 
-            => this.FromHeaderDescription(Values[_iterator].Headers);
+            => FromHeaderDescription(Values[_iterator].Headers);
 
         protected override string GetContentType() 
             => Values[_iterator].ContentType;

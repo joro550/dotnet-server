@@ -18,7 +18,7 @@ namespace GlobalServer.Api
             {
                 foreach (var interaction in Configuration.Instance.Settings.Interactions)
                 {
-                    interaction.Request.Accept(new AddRouting(routeBuilder, interaction.Response));
+                    interaction.Request.Accept(new AddRouting(routeBuilder, interaction));
                 }
             });
         }

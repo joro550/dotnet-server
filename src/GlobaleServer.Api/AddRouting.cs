@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GlobalServer.Properties;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using GlobalServer.Properties.Request;
 using static System.Net.Http.HttpMethod;
 using GlobalServer.Properties.Request.Queries;
-using GlobalServer.Properties.Response.Models;
 
 namespace GlobalServer.Api
 {
     public class AddRouting : QueryVisitor
     {
-        private readonly ResponseBase _response;
+        private readonly ServerInteraction _response;
         private readonly IEndpointRouteBuilder _builder;
 
-        public AddRouting(IEndpointRouteBuilder builder, ResponseBase response)
+        public AddRouting(IEndpointRouteBuilder builder, ServerInteraction response)
         {
             _builder = builder;
             _response = response;
@@ -44,7 +44,8 @@ namespace GlobalServer.Api
         private RequestDelegate RequestDelegate() =>
             async httpContext =>
             {
-                var response = _response.GetResponseModel();
+                var requestAction = _response.OnRequestAction();
+                var response = _response.GetResponse();
                 
                 foreach (var (key, value) in response.HeaderDictionary)
                     httpContext.Response.Headers.Add(key, value);
@@ -52,6 +53,7 @@ namespace GlobalServer.Api
                 httpContext.Response.StatusCode = response.StatusCode;
                 httpContext.Response.ContentType = response.ContentType;
                 await httpContext.Response.WriteAsync(response.Content);
+                await requestAction;
             };
     }
 }

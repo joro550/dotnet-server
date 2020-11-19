@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace GlobalServer.Properties.Response.Models
 {
@@ -11,10 +11,10 @@ namespace GlobalServer.Properties.Response.Models
         protected abstract string GetContentType();
         protected abstract string GetResponse();
 
-        protected IHeaderDictionary FromHeaderDescription(IEnumerable<HeaderDescription> headers)
+        protected static IHeaderDictionary FromHeaderDescription(IEnumerable<HeaderDescription> headers)
         {
             var headerDescriptions = headers as HeaderDescription[] ?? headers.ToArray();
-            if (headerDescriptions == null || !headerDescriptions.Any())
+            if (!headerDescriptions.Any())
                 return new HeaderDictionary();
             
             var headerDictionary = new HeaderDictionary();
@@ -23,8 +23,8 @@ namespace GlobalServer.Properties.Response.Models
             return headerDictionary;
         }
 
-        public virtual Models.Response GetResponseModel() =>
-            new Models.Response
+        public virtual Response GetResponseModel() =>
+            new Response
             {
                 Content = GetResponse(),
                 StatusCode = GetStatusCode(),
